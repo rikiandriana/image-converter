@@ -11,8 +11,9 @@ export class ConvertController {
             }
 
             const buffer: Buffer = req.file.buffer;
-            const formatTarget: FormatTarget = req.query.target as FormatTarget;
-            const response = await ConvertService.convert(buffer, formatTarget);
+            const formatTarget: FormatTarget = req.body.format as FormatTarget;
+            const quality: number = Number(req.body.quality);
+            const response = await ConvertService.convert(buffer, formatTarget, quality);
 
             res.status(200)
                 .type(`image/${formatTarget}`)
